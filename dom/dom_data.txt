@@ -1,0 +1,1 @@
+{"user age": 24, "user sex": "m", "user total": 300, "squat": 100, "bench": 100, "deadlift": 100}
