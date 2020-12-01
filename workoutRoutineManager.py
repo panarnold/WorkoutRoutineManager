@@ -115,14 +115,9 @@ def create_training_for_user():
     pass
 
 def main():
-    print('Hello there.\n\tType 1 to create new user' +
-    '\n\tType 2 to choose from existing users\n\tType 3 to exit the program:\n')
-    option = input()
-    try:
-        option = int(option)
-    except:
-        print('Please read carefully. One more time')
-        main()
+    option = try_if_option_is_int(input('Hello there.\n\tType 1 to create new user' +
+    '\n\tType 2 to choose from existing users\n\tType 3 to exit the program:\n'))
+    try_if_option_is_in_range(option, 1, 3)
 
     list = []
     if option == 1:
@@ -138,30 +133,59 @@ def main():
     elif option == 3:
         print("Thank's, cya.")
         exit(0)
-    else:
-        print('Please read carefully. One more time')
-        main()
 
 def user_menu():
-    option = input("\t1 - make a workout routine\n\t2 - back to main menu:\n")
+    option = try_if_option_is_int(input("\t1 - make a workout routine\n\t2 - back to main menu:\n"))
 
-    try:
-        option = int(option)
-    except:
-        print('Please read carefully. One more time')
-        user_menu()
+    try_if_option_is_in_range(option, 1, 2)
 
     if option == 1:
-        workout_survey()
+        workout_survey(current_user)
     elif option == 2:
         main()
 
-def workout_survey():
+def workout_survey(current_user):
+    print("Let's start quick survey.")
+
+    how_many_trainings = try_if_option_is_int(input("How many tranings per week? (3, 4, 5)?"))
+    try_if_option_is_in_range(how_many_trainings, 3, 5)
+
+    set_training_type = try_if_option_is_int(input("Set training type(1 - volume, 2 - intensity)"))
+    try_if_option_is_in_range(set_training_type, 1, 2)
+
+    set_priority = try_if_option_is_int(input("Set priority(1 - quads, 2 - chest, 3 - hamstrings)"))
+    try_if_option_is_in_range(set_priority, 1, 3)
+
+    generate_traning_day(how_many_trainings, set_training_type, set_priority)
+
+def generate_traning_day(how_many_trainings, set_training_type, set_priority):
     pass
 
 
+
+
+
+
+
+
+def try_if_option_is_int(option):
+    if option.isalnum():
+        return int(option)
+    else:
+        option = input("Option has to be an int, my man. One more time:\n")
+        try_if_option_is_int(option)
+
+def try_if_option_is_in_range(option, min_range, max_range):
+    option = int(option)
+    if option < min_range or option > max_range:
+        option = input(f"Option has to be something between {min_range} and {max_range}")
+        try_if_option_is_in_range(option, min_range, max_range)
+
+        
+
 main()
 # load_user_from_dir('wojtek')
+# try_if_option_is_int("4")
 
 
 
